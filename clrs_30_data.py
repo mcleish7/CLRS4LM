@@ -37,11 +37,11 @@ def pointers_to_list(inp, head=None):
         print("lengths not equal in pointers to list")
         print(f"input {len(inp)}: ", inp)
         print(f"output {len(ordered_list)}: ", ordered_list)
-        if (temp_head is None) or (len(inp)-len(ordered_list) > 1):#((3*len(inp))/4)):
+        if (temp_head is None) or (len(inp)-len(ordered_list) > 1):
             print("temp head ", temp_head)
             print("lengths not equal in pointers to list ... EXITING")
             exit()
-    return np.array(ordered_list).tolist() # fixes weird json errors when list lengths differ 
+    return np.array(ordered_list).tolist()
 
 def strong_comp_pointers(inp):
     pointers = inp.copy()
@@ -105,7 +105,6 @@ def heap_sort(partition="train", num_samples=1):
     outputs = []
     for i, feedback in enumerate(ds.as_numpy_iterator()):
         inputs.append(feedback.features.inputs[0].data[0]) # inputs
-        
         outputs.append(pointers_to_list(feedback.outputs[0].data[0])) #outputs
         if i >= num_samples-1:
             return np.array(inputs), np.array(outputs)
@@ -117,7 +116,6 @@ def quick_sort(partition="train", num_samples=1):
     outputs = []
     for i, feedback in enumerate(ds.as_numpy_iterator()):
         inputs.append(feedback.features.inputs[0].data[0]) # inputs
-        
         outputs.append(pointers_to_list(feedback.outputs[0].data[0])) #outputs
         if i >= num_samples-1:
             return np.array(inputs), np.array(outputs)
@@ -129,7 +127,6 @@ def minimum(partition="train", num_samples=1):
     outputs = []
     for i, feedback in enumerate(ds.as_numpy_iterator()):
         inputs.append(feedback.features.inputs[0].data[0]) # inputs
-        
         outputs.append(feedback.outputs[0].data[0]) #outputs
         if i >= num_samples-1:
             return np.array(inputs), np.array(outputs)
@@ -143,7 +140,6 @@ def binary_search(partition="train", num_samples=1):
     for i, feedback in enumerate(ds.as_numpy_iterator()):
         inputs.append(feedback.features.inputs[0].data[0]) # inputs
         targets.append(feedback.features.inputs[2].data[0]) # target
-        
         outputs.append(feedback.outputs[0].data[0]) #outputs
         if i >= num_samples-1:
             return np.array(inputs), np.array(outputs), np.array(targets)
@@ -155,7 +151,6 @@ def quick_select(partition="train", num_samples=1):
     outputs = []
     for i, feedback in enumerate(ds.as_numpy_iterator()):
         inputs.append(feedback.features.inputs[0].data[0]) # inputs
-        
         outputs.append(feedback.outputs[0].data[0]) #outputs
         if i >= num_samples-1:
             return np.array(inputs), np.array(outputs)
@@ -168,7 +163,6 @@ def maximum_subarray(partition="train", num_samples=1):
     ends = []
     for i, feedback in enumerate(ds.as_numpy_iterator()):
         inputs.append(feedback.features.inputs[0].data[0]) # inputs
-        
         starts.append(feedback.outputs[1].data[0]) 
         ends.append(feedback.outputs[0].data[0])
         if i >= num_samples-1:
@@ -183,7 +177,6 @@ def activity_selection(partition="train", num_samples=1):
     for i, feedback in enumerate(ds.as_numpy_iterator()):
         inputs_f.append(feedback.features.inputs[0].data[0]) # inputs
         inputs_s.append(feedback.features.inputs[2].data[0]) # inputs
-        
         outputs.append(feedback.outputs[0].data[0]) #outputs
         if i >= num_samples-1:
             return np.array(inputs_f), np.array(outputs), np.array(inputs_s)
@@ -197,7 +190,6 @@ def task_scheduling(partition="train", num_samples=1):
     for i, feedback in enumerate(ds.as_numpy_iterator()):
         inputs_d.append(feedback.features.inputs[0].data[0]) # inputs
         inputs_w.append(feedback.features.inputs[2].data[0]) # inputs
-        
         outputs.append(feedback.outputs[0].data[0]) #outputs
         if i >= num_samples-1:
             return np.array(inputs_d), np.array(outputs), np.array(inputs_w)
@@ -209,12 +201,7 @@ def matrix_mul(partition="train", num_samples=1):
     outputs = []
     for i, feedback in enumerate(ds.as_numpy_iterator()):
         inputs.append(feedback.features.inputs[0].data[0]) # inputs
-        
         outputs.append(feedback.outputs[0].data[0][1:,1:]) #outputs
-        # if i == 0:
-        #     print(feedback.outputs[0].data[0])
-        #     print(feedback.outputs[0].data[0][1:,1:])
-        #     exit()
         if i >= num_samples-1:
             return np.array(inputs), np.array(outputs)
     return np.array(inputs), np.array(outputs)
@@ -228,7 +215,7 @@ def longest_common_subseq(partition="train", num_samples=1):
     for i, feedback in enumerate(ds.as_numpy_iterator()):
         # we rearrange the outputs and take the bottom left corner to get a (4,8,8) matrix
         half_dimension = (feedback.outputs[0].data[0].shape[1])//2
-        temp = np.swapaxes(feedback.outputs[0].data[0],0,2)[:,half_dimension:,:-half_dimension]#[:,8:,:-8]
+        temp = np.swapaxes(feedback.outputs[0].data[0],0,2)[:,half_dimension:,:-half_dimension]# i.e. [:,8:,:-8] for train
         # We take the first three (8,8) matracies and combine them with the directional meanings
         temp2 = ((temp[0]*3)+temp[1]+(temp[2]*2)).T
         d = {3:"↖", 1:"↑", 2:"←"}
@@ -251,7 +238,6 @@ def opt_binary_search_tree(partition="train", num_samples=1):
     for i, feedback in enumerate(ds.as_numpy_iterator()):
         inputs_p.append(feedback.features.inputs[0].data[0]) # inputs
         inputs_q.append(feedback.features.inputs[2].data[0]) # inputs
-        
         outputs.append(feedback.outputs[0].data[0][:-1,1:]) #outputs
         if i >= num_samples-1:
             return np.array(inputs_p), np.array(outputs), np.array(inputs_q)
@@ -277,7 +263,6 @@ def dfs(partition="train", num_samples=1):
     outputs = []
     for i, feedback in enumerate(ds.as_numpy_iterator()):
         inputs.append(feedback.features.inputs[0].data[0]) # inputs
-        
         outputs.append(pointers_to_list(feedback.outputs[0].data[0])) #outputs
         if i >= num_samples-1:
             return np.array(inputs), np.array(outputs)
@@ -290,7 +275,6 @@ def topological_sort(partition="train", num_samples=1):
     output_heads = []
     for i, feedback in enumerate(ds.as_numpy_iterator()):
         inputs.append(feedback.features.inputs[0].data[0]) # inputs
-        
         outputs.append(pointers_to_list(feedback.outputs[0].data[0])[::-1]) #outputs
         output_heads.append(feedback.outputs[1].data[0])
         if i >= num_samples-1:
@@ -303,7 +287,6 @@ def articulation_points(partition="train", num_samples=1):
     outputs = []
     for i, feedback in enumerate(ds.as_numpy_iterator()):
         inputs.append(feedback.features.inputs[0].data[0]) # inputs
-        
         outputs.append(feedback.outputs[0].data[0]) #outputs
         if i >= num_samples-1:
             return np.array(inputs), np.array(outputs)
@@ -328,7 +311,6 @@ def strongly_connected_comps(partition="train", num_samples=1):
     outputs = []
     for i, feedback in enumerate(ds.as_numpy_iterator()):
         inputs.append(feedback.features.inputs[0].data[0]) # inputs
-        
         outputs.append(strong_comp_pointers(feedback.outputs[0].data[0])) #outputs
         if i >= num_samples-1:
             return np.array(inputs), outputs
@@ -340,7 +322,6 @@ def kruskal(partition="train", num_samples=1):
     outputs = []
     for i, feedback in enumerate(ds.as_numpy_iterator()):
         inputs.append(feedback.features.inputs[0].data[0]) # inputs
-        
         outputs.append(feedback.outputs[0].data[0]) #outputs
         if i >= num_samples-1:
             return np.array(inputs), np.array(outputs).astype(int)
@@ -420,7 +401,6 @@ def naive_strings(partition="train", num_samples=1):
     for i, feedback in enumerate(ds.as_numpy_iterator()):
         inputs.append(feedback.features.inputs[0].data[0]) # inputs
         strings.append(feedback.features.inputs[2].data[0])
-        
         outputs.append(feedback.outputs[0].data[0]) #outputs
         if i >= num_samples-1:
             return np.array(inputs), np.array(outputs), np.array(strings)
@@ -434,7 +414,6 @@ def kmp_strings(partition="train", num_samples=1):
     for i, feedback in enumerate(ds.as_numpy_iterator()):
         inputs.append(feedback.features.inputs[0].data[0]) # inputs
         strings.append(feedback.features.inputs[2].data[0])
-        
         outputs.append(feedback.outputs[0].data[0]) #outputs
         if i >= num_samples-1:
             return np.array(inputs), np.array(outputs), np.array(strings)
@@ -449,14 +428,7 @@ def segment_intersect(partition="train", num_samples=1):
     for i, feedback in enumerate(ds.as_numpy_iterator()):
         xs.append(feedback.features.inputs[1].data[0]) # inputs
         ys.append(feedback.features.inputs[2].data[0])
-        
         outputs.append(feedback.outputs[0].data) #outputs
-        print(feedback.features.inputs[1].data[0])
-        print(feedback.features.inputs[2].data[0])
-        print(feedback.features.inputs[1].data[0].shape)
-        print(feedback.features.inputs[2].data[0].shape)
-        print(feedback.outputs[0].data)
-        exit()
         if i >= num_samples-1:
             return np.array(xs), np.array(outputs), np.array(ys)
     return np.array(xs), np.array(outputs), np.array(ys)
@@ -469,7 +441,6 @@ def graham_scan(partition="train", num_samples=1):
     for i, feedback in enumerate(ds.as_numpy_iterator()):
         xs.append(feedback.features.inputs[1].data[0]) # inputs
         ys.append(feedback.features.inputs[2].data[0])
-        
         outputs.append(feedback.outputs[0].data[0]) #outputs
         if i >= num_samples-1:
             return np.array(xs), np.array(outputs), np.array(ys)
@@ -483,7 +454,6 @@ def jarvis_march(partition="train", num_samples=1):
     for i, feedback in enumerate(ds.as_numpy_iterator()):
         xs.append(feedback.features.inputs[1].data[0]) # inputs
         ys.append(feedback.features.inputs[2].data[0])
-        
         outputs.append(feedback.outputs[0].data[0]) #outputs
         if i >= num_samples-1:
             return np.array(xs), np.array(outputs), np.array(ys)
