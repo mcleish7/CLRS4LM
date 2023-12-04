@@ -1,9 +1,9 @@
 # LM CLRS
 GitHub for the CLRS tasks in language form.
-TODO:
+<!-- TODO:
 Clean the data i.e. the tricks I used in checker
     Check topo sort, bridges
-Add the bible to here
+Add the bible to here -->
 
 ## Reference
 
