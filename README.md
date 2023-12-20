@@ -1,9 +1,5 @@
 # LM CLRS
 GitHub for the CLRS tasks in language form.
-<!-- TODO:
-Clean the data i.e. the tricks I used in checker
-    Check topo sort, bridges
-Add the bible to here -->
 
 ## Reference
 
@@ -14,17 +10,18 @@ Add the bible to here -->
     ```
 
 2. Generate data
+   The options for `<TASK>` are defined in the [tasks](https://github.com/mcleish7/CLRS4LM/blob/main/data_schema.py#L33) array in data_schema.py
     ```SHELL
     python data_generator.py --task <TASK> --part <train or test> --num_samples <number of generated samples>
     ```
 
-3. (Optional) Create txt files of inputs
+4. (Optional) Create txt files of inputs
     This only works for 2d array inputs.
     ```SHELL
     python inputs_to_text_files.py --task <TASK> --dp <number of decimal places to round data to>
     ```
 
-4. Generate prompts
+5. Generate prompts
     We give an optional framework to generate prompts automatically
     ```SHELL
     python prompt_generator.py --task <TASK> --part <train or test> --num_samples <number of generated samples>`
