@@ -38,5 +38,16 @@ Some CLRS outputs are pointers, for example the output of: `[13, 13, 7, 0, 4, 12
 
 ![pointer diagram](./pointer_diagram.png)
 
+## Citation
+```
+@article{mcleish2024benchmarking,
+  title={Benchmarking ChatGPT on Algorithmic Reasoning},
+  author={McLeish, Sean and Schwarzschild, Avi and Goldstein, Tom},
+  journal={arXiv preprint arXiv:2404.03441},
+  year={2024}
+}
+```
+
 ### Origional GNN CLRS
 https://github.com/google-deepmind/clrs
+
